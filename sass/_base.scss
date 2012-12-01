@@ -21,6 +21,13 @@
 
 // Variables
 $color-alert: #c41c37;
+$color-link: #1c6ccf;
+$color-font: #333;
+
+body {
+	background: #f1f1f1;
+	color: $color-font;
+}
 
 // h1, h2, h3 {
 // 	font-family: $titleFont;
@@ -38,4 +45,24 @@ $color-alert: #c41c37;
 	max-width: 100%;
 	width: 100%;
 	height: auto;
+}
+
+// Fonts
+h2 {
+	margin-bottom: 30px;
+	font-size: emCalc(30px);
+	line-height: 1;
+}
+
+h3 {
+	font-size: emCalc(18px);
+}
+
+a {
+	color: $color-link;
+
+	&:hover {
+		color: $color-font;
+		text-decoration: none;
+	}
 }
