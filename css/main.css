@@ -1,1 +1,1 @@
-.wrapper{max-width:1000px;margin:0 auto}
+.fleximage,.imagebox img{max-width:100%;width:100%;height:auto}.wrapper{max-width:1000px;margin:0 auto}.concept{width:100%;max-height:300px;position:relative;margin-bottom:30px;overflow:hidden;border-bottom:solid 8px #c41c37}.concept h1{font-size:4.167em;line-height:1.4em;color:#fff}.concept .text{width:100%;position:absolute;bottom:0;left:0;padding:10px;color:#fff;text-shadow:none;background:rgba(0,0,0,0.7)}.concept p{margin-bottom:15px;font-size:1.5em;line-height:1.5em}

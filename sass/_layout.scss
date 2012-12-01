@@ -2,3 +2,41 @@
 	max-width: 1000px;
 	margin: 0 auto;
 }
+
+.concept {
+	width: 100%;
+	max-height: 300px;
+	position: relative;
+	margin-bottom: 30px;
+	overflow: hidden;
+	border-bottom: solid 8px $color-alert;
+
+	h1 {
+		font-size: emCalc(50px);
+		line-height: emCalc(70px, 50px);
+		color: #fff;
+	}
+
+	.text {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		padding: 10px;
+		color: #fff;
+		text-shadow: none;
+		background: rgba(0, 0, 0, 0.7);
+	}
+
+	p {
+		margin-bottom: 15px;
+		font-size: emCalc(18px);
+		line-height: emCalc(30px, 20px);
+	}
+}
+
+.imagebox {
+	img {
+		@extend .fleximage;		
+	}
+}
