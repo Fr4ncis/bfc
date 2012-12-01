@@ -20,3 +20,22 @@
 }
 
 // Variables
+$color-alert: #c41c37;
+
+// h1, h2, h3 {
+// 	font-family: $titleFont;
+// }
+
+// @function rgbaColor($r, $g, $b, $a) {
+// 	@return rgba($r,$g,$b,$a);
+// }
+
+@function emCalc($desiredFont, $baseFont: 12px) {
+	@return ($desiredFont / $baseFont) + 0em;
+}
+
+.fleximage {
+	max-width: 100%;
+	width: 100%;
+	height: auto;
+}
