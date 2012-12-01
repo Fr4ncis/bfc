@@ -21,6 +21,7 @@
 	text-shadow: #fff 1px 1px 1px;
 
 	li {
+		min-height: 80px;
 		position: relative;
 		padding: 20px 30px 20px 120px;
 		border-top: solid 1px rgba(0, 0, 0, 0.2);		
@@ -30,7 +31,7 @@
 		//}
 
 		a {
-			min-height: 80px;	
+			//min-height: 80px;	
 			display: block;	
 			
 		}
