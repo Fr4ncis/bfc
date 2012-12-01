@@ -72,7 +72,7 @@ function createEntity() {
 
 function getSongs() {
   var songs = new Usergrid.Collection('songs');
-  songs.setQueryParams({"limit":"1000"});
+  songs.setQueryParams({"ql":"select * where budget>=0", "limit":"1000"});
   
   var sp = getSpotifyApi(1);
   var models = sp.require("sp://import/scripts/api/models");
