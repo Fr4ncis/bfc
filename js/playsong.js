@@ -28,8 +28,31 @@ models.player.observe(models.EVENT.CHANGE, function(event) {
 		"#"+differenceTimestamp+"#"+
 		lastTrack+" ("+lastTrackDuration+") "+
 		playStop+"["+listenedAll+"]"+"<br />\n";
+		
+		if (listenedAll) {
+		    // TODO: Francesco: lastTrack is not actually the correct spotify ID!
+		    console.log("should decrement for "+lastTrack)		    
+		    // setting track ID manually here to test API calls
+		    lastTrack = 'spotify:track:4jMJJRL3lPxj54H9UliywM';
+		    updateBudget(lastTrack, -1);
+		}
 	}
 });
+
+
+function updateBudget(track, modification) {
+    var songs = new Usergrid.Collection('songs');
+    songs.setQueryParams({"ql":"select * where spotify_url='"+track+"'"})
+    songs.get(function() {
+        if (songs.hasNextEntity()) {
+	        song = songs.getNextEntity();
+	        var budget = song.get('budget')+modification;
+	        song.set('budget', budget);
+	        song.save();
+	    }
+    });    
+}
+
 
 function playSong(trackURI) {
   var sp = getSpotifyApi();
@@ -42,7 +65,7 @@ function createEntity() {
   var song = new Usergrid.Entity("songs");
   song.set("title","Song 2");
   song.set("artist","Blur");
-  song.set("spotify-url", "spotify:track:3GfOAdcoc3X5GPiiXmpBjK");
+  song.set("spotify_url", "spotify:track:3GfOAdcoc3X5GPiiXmpBjK");
   song.set("budget", 1000);
   song.save();
 }
@@ -57,33 +80,36 @@ function getSongs() {
 
   songs.get(function() {
     while(songs.hasNextEntity()) {
-      var song = songs.getNextEntity();
-      
-      // Generate the playable album art image
-      var single_track = models.Track.fromURI(song.get('spotify-url'));
-      var single_track_playlist = new models.Playlist();
-      single_track_playlist.add(single_track);
-      var single_track_player = new views.Player();
-      single_track_player.track = null; // Don't play the track right away
-      single_track_player.context = single_track_playlist;
+        var song = songs.getNextEntity();
+       
+        // Generate the playable album art image
+        var single_track = models.Track.fromURI(song.get('spotify_url'));
+        var single_track_playlist = new models.Playlist();
+        single_track_playlist.add(single_track);
+        var single_track_player = new views.Player();
+        single_track_player.track = null; // Don't play the track right away
+        single_track_player.context = single_track_playlist;
 
-      // Convert the player node to text
-      var el = document.createElement("p");
-      el.appendChild(single_track_player.node);
-      var tmp = document.createElement("div");
-      tmp.appendChild(el);
+        // Convert the player node to text
+        var el = document.createElement("p");
+        el.appendChild(single_track_player.node);
+        var tmp = document.createElement("div");
+        tmp.appendChild(el);
+    
+        // Generate the HTML snippet for this song
+        $('#sponsored_songs').append('<li>'+
+             '<div class="albumimage">'+
+                 tmp.innerHTML +
+             '</div>'+
+             '<a href="'+song.get('spotify_url')+'">'+
+                 '<h3>'+song.get('artist')+'</h3>'+
+                 '<p>'+song.get('title')+'</p>'+
+             '</a>'+
+         '</li>');
       
-      // Generate the HTML snippet for this song
-      $('#sponsored_songs').append('<li>'+
-		    '<div class="albumimage">'+
-			    tmp.innerHTML +
-  		    '</div>'+
-			'<a href="'+song.get('spotify-url')+'">'+
-				'<h3>'+song.get('artist')+'</h3>'+
-				'<p>'+song.get('title')+'</p>'+
-			'</a>'+
-		'</li>');
-      }
+      // console.log(song.get('uuid'));
+      
+     }
   });
 }
 
