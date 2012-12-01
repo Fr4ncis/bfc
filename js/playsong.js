@@ -1,3 +1,5 @@
+Usergrid.ApiClient.init('fr4ncis', 'sandbox');
+
 var sp = getSpotifyApi();
 var models = sp.require('$api/models');
 
@@ -34,4 +36,11 @@ function playSong(trackURI) {
 	var models = sp.require('$api/models');
 	var player = models.player;
 	player.play(trackURI)
+}
+
+function createEntity() {  
+  var song = new Usergrid.Entity("songs");
+  song.set("title","Song 2");
+  song.set("artist","Blur");
+  song.save();
 }
