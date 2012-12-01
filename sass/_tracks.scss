@@ -20,16 +20,18 @@
 	text-shadow: #fff 1px 1px 1px;
 
 	li {
-		a {
-			position: relative;
-			min-height: 80px;
-			padding: 20px 30px 20px 120px;
-			display: block;
-			border-top: solid 1px rgba(0, 0, 0, 0.2);			
+		position: relative;
+		padding: 20px 30px 20px 120px;
+		border-top: solid 1px rgba(0, 0, 0, 0.2);		
 			
-			&:hover {
-				background: rgba(28, 108, 207, 0.2);
-			}
+		//&:hover {
+		//	background: rgba(28, 108, 207, 0.2);
+		//}
+
+		a {
+			min-height: 80px;	
+			display: block;	
+			
 		}
 
 		&:first-child {
