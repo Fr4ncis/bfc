@@ -74,13 +74,13 @@ function getSongs() {
       tmp.appendChild(el);
       
       // Generate the HTML snippet for this song
-      $('#sponsored_songs').append('	<li>'+
+      $('#sponsored_songs').append('<li>'+
+		    '<div class="albumimage">'+
+			    tmp.innerHTML +
+  		    '</div>'+
 			'<a href="'+song.get('spotify-url')+'">'+
 				'<h3>'+song.get('artist')+'</h3>'+
 				'<p>'+song.get('title')+'</p>'+
-				'<div class="albumimage">'+
-					tmp.innerHTML +
-				'</div>'+
 			'</a>'+
 		'</li>');
       }
