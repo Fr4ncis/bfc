@@ -508,10 +508,10 @@ Usergrid.SDK_VERSION = '0.9.9';
     //       This function should be changed to PUT only at that time, and updated to use
     //       either uuid or name
     var method = 'POST';
-    if (this.get('uuid')) {
+    if (this._uuid) {
       method = 'PUT';
-      if (Usergrid.validation.isUUID(this.get('uuid'))) {
-        path += "/" + this.get('uuid');
+      if (Usergrid.validation.isUUID(this._uuid)) {
+        path += "/" + this._uuid;
       }
     }
 
@@ -587,8 +587,8 @@ Usergrid.SDK_VERSION = '0.9.9';
   Usergrid.Entity.prototype.fetch = function (successCallback, errorCallback){
     var path = this.getCollectionType();
     //if a uuid is available, use that, otherwise, use the name
-    if (this.get('uuid')) {
-      path += "/" + this.get('uuid');
+    if (this._uuid) {
+      path += "/" + this._uuid;
     } else {
       if (path == "users") {
         if (this.get("username")) {
@@ -650,8 +650,8 @@ Usergrid.SDK_VERSION = '0.9.9';
    */
   Usergrid.Entity.prototype.destroy = function (successCallback, errorCallback){
     var path = this.getCollectionType();
-    if (this.get('uuid')) {
-      path += "/" + this.get('uuid');
+    if (this._uuid) {
+      path += "/" + this._uuid;
     } else {
       console.log('Error trying to delete object - no uuid specified.');
       if (typeof(errorCallback) == "function"){
@@ -777,7 +777,7 @@ Usergrid.SDK_VERSION = '0.9.9';
 
   Usergrid.Collection.prototype.destroyEntity = function (entity) {
     //first get the entities uuid
-    var uuid = entity.get('uuid');
+    var uuid = entity._uuid;
     //if the entity has a uuid, delete it
     if (Usergrid.validation.isUUID(uuid)) {
       //then remove it from the list
@@ -789,7 +789,7 @@ Usergrid.SDK_VERSION = '0.9.9';
           this._list[i-1] = this._list[i];
           this._list[i] = null;
         }
-        if (this._list[i].get('uuid') == uuid) {
+        if (this._list[i]._uuid == uuid) {
           this._list[i] = null;
           reorder=true;
         }
@@ -830,7 +830,7 @@ Usergrid.SDK_VERSION = '0.9.9';
     var count = this._list.length;
     var i=0;
     for (i=0; i<count; i++) {
-      if (this._list[i].get('uuid') == UUID) {
+      if (this._list[i]._uuid == UUID) {
         return this._list[i];
       }
     }
@@ -1095,8 +1095,8 @@ Usergrid.SDK_VERSION = '0.9.9';
     for (var i=0;i<count;i++) {
       entity = entities[i];
       data = entity.get();
-      if (entity.get('uuid')) {
-        data.uuid = entity.get('uuid');
+      if (entity._uuid) {
+        data.uuid = entity._uuid;
         jsonObj.push(data);
       }
       entity.save();
@@ -1403,7 +1403,7 @@ Usergrid.ApiClient = (function () {
    */
   function isLoggedInAppUser() {
     var user = this.getLoggedInUser();
-    return (this.getToken() && Usergrid.validation.isUUID(user.get('uuid')));
+    return (this.getToken() && Usergrid.validation.isUUID(user._uuid));
   }
 
    /*
