@@ -42,5 +42,22 @@ function createEntity() {
   var song = new Usergrid.Entity("songs");
   song.set("title","Song 2");
   song.set("artist","Blur");
+  song.set("spotify-url", "spotify:track:3GfOAdcoc3X5GPiiXmpBjK");
+  song.set("budget", 1000);
   song.save();
 }
+
+function getSongs() {
+  var songs = new Usergrid.Collection('songs');
+  songs.setQueryParams({"limit":"1000"});
+  songs.get(function() {
+    while(songs.hasNextEntity()) {
+      var song = songs.getNextEntity();
+      $('#sponsored_song_list').append('<li><a href="'+ song.get('spotify-url') + '">' + song.get('artist') + " - " + song.get('title') + "</a></li>");
+    }
+  });
+}
+
+$(function() {
+  getSongs();
+});
