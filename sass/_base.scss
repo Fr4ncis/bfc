@@ -25,7 +25,8 @@ $color-link: #1c6ccf;
 $color-font: #333;
 
 body {
-	background: #f1f1f1;
+	min-height: 100%;
+	@include retina-image("ricepaper", "png", 500px 500px, repeat);
 	color: $color-font;
 }
 
