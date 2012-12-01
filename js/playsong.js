@@ -50,11 +50,40 @@ function createEntity() {
 function getSongs() {
   var songs = new Usergrid.Collection('songs');
   songs.setQueryParams({"limit":"1000"});
+  
+  var sp = getSpotifyApi(1);
+  var models = sp.require("sp://import/scripts/api/models");
+  var views = sp.require("sp://import/scripts/api/views");
+
   songs.get(function() {
     while(songs.hasNextEntity()) {
       var song = songs.getNextEntity();
-      $('#sponsored_song_list').append('<li><a href="'+ song.get('spotify-url') + '">' + song.get('artist') + " - " + song.get('title') + "</a></li>");
-    }
+      
+      // Generate the playable album art image
+      var single_track = models.Track.fromURI(song.get('spotify-url'));
+      var single_track_playlist = new models.Playlist();
+      single_track_playlist.add(single_track);
+      var single_track_player = new views.Player();
+      single_track_player.track = null; // Don't play the track right away
+      single_track_player.context = single_track_playlist;
+
+      // Convert the player node to text
+      var el = document.createElement("p");
+      el.appendChild(single_track_player.node);
+      var tmp = document.createElement("div");
+      tmp.appendChild(el);
+      
+      // Generate the HTML snippet for this song
+      $('#sponsored_songs').append('	<li>'+
+			'<a href="'+song.get('spotify-url')+'">'+
+				'<h3>'+song.get('artist')+'</h3>'+
+				'<p>'+song.get('title')+'</p>'+
+				'<div class="albumimage">'+
+					tmp.innerHTML +
+				'</div>'+
+			'</a>'+
+		'</li>');
+      }
   });
 }
 
