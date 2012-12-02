@@ -13,30 +13,27 @@ models.player.observe(models.EVENT.CHANGE, function(event) {
 	var playerTrackInfo = player.track;
 	var track = playerTrackInfo.data;
 	
-	lastTrack = track.uri;
-	lastTimestamp = currentTimestamp;
-	currentTimestamp = Number(new Date());
-	differenceTimestamp = currentTimestamp - lastTimestamp;
-	listenedAll = (differenceTimestamp > (lastTrackDuration-10000))?true:false;
-	lastTrackDuration = track.duration;
-	
-	if (playerTrackInfo == null) {
-		trackSection.innerHTML = "Nothing playing!";
-	} else {
-	  var playStop = (event.data.playstate?"P":"S");
-		trackSection.innerHTML = trackSection.innerHTML+
-		"#"+differenceTimestamp+"#"+
-		lastTrack+" ("+lastTrackDuration+") "+
-		playStop+"["+listenedAll+"]"+"<br />\n";
-		
-		if (listenedAll) {
-		    // TODO: Francesco: lastTrack is not actually the correct spotify ID!
-		    console.log("should decrement for "+lastTrack)		    
-		    // setting track ID manually here to test API calls
-		    lastTrack = 'spotify:track:4jMJJRL3lPxj54H9UliywM';
-		    updateBudget(lastTrack, -1);
-		}
+  lastTimestamp = currentTimestamp;
+  currentTimestamp = Number(new Date());
+  differenceTimestamp = currentTimestamp - lastTimestamp;
+  listenedAll = (differenceTimestamp > (lastTrackDuration-10000))?true:false;
+  
+  if (lastTrack) {
+    if (playerTrackInfo == null) {
+       console.log("Nothing playing!");
+    } else {
+      console.log("#"+differenceTimestamp+"# "+lastTrack.name+" ("+lastTrackDuration+")");
+      if (listenedAll) {
+        // lastTrack = 'spotify:track:4jMJJRL3lPxj54H9UliywM';
+        updateBudget(lastTrack.uri, -1);
+      }
+    }
 	}
+	
+
+  
+  lastTrack = track;
+  lastTrackDuration = track.duration;
 });
 
 
