@@ -51,5 +51,11 @@
 		font-size: emCalc(14px);
 	}
 
-	.playsong {font-size: emCalc(12px); color: $color-font;}
+	.updatebudget, .playsong {font-size: emCalc(12px); color: $color-font;}
+
+	.updatebudget:hover{
+		&:before{
+			content: "\22";
+		}
+	}
 }
