@@ -104,7 +104,7 @@ function getSongs() {
              '<a href="javascript:playSong(\''+song.get('spotify_url')+'\')">'+
                  '<h3>'+song.get('artist')+'</h3>'+
                  '<p>'+song.get('title')+'</p>'+
-                 '<p>This song generated € '+(song.get('play_count')/10).toFixed(2)+' in donations, '+song.get('budget')+' plays remaining</p>'+
+                 '<p class="playcount">This song generated € '+(song.get('play_count')/10).toFixed(2)+' in donations, '+song.get('budget')+' plays remaining</p>'+
              '</a>'+
          '</li>');
       

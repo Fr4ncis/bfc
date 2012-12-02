@@ -30,14 +30,6 @@ body {
 	color: $color-font;
 }
 
-// h1, h2, h3 {
-// 	font-family: $titleFont;
-// }
-
-// @function rgbaColor($r, $g, $b, $a) {
-// 	@return rgba($r,$g,$b,$a);
-// }
-
 @function emCalc($desiredFont, $baseFont: 12px) {
 	@return ($desiredFont / $baseFont) + 0em;
 }
@@ -47,6 +39,8 @@ body {
 	width: 100%;
 	height: auto;
 }
+
+@import "icomoon";
 
 // Fonts
 h2 {
