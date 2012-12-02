@@ -47,6 +47,7 @@ function updateBudget(track, budget_modification, plays_modification) {
 	        var play_count = song.get('play_count')+plays_modification;
 	        song.set('play_count', play_count);
 	        song.save();
+	        getSongs();
 	    }
     });    
 }
@@ -76,6 +77,7 @@ function getSongs() {
   var views = sp.require("sp://import/scripts/api/views");
 
   songs.get(function() {
+    $('#sponsored_songs').empty();
     while(songs.hasNextEntity()) {
         var song = songs.getNextEntity();
        
