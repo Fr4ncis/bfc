@@ -48,8 +48,33 @@ function updateBudget(track, budget_modification, plays_modification) {
 	        song.set('play_count', play_count);
 	        song.save();
 	        getSongs();
+	        increaseDonation();
 	    }
     });    
+}
+
+function increaseDonation() {    
+    var donations = new Usergrid.Collection('totalDonations');
+    donations.get(function() {
+        if (donations.hasNextEntity()) {
+	        donation = donations.getNextEntity();
+	        var budget = donation.get('amount')+1;
+	        donation.set('amount', budget);
+	        donation.save();
+	        getDonations();
+	    }
+    });    
+}
+
+function getDonations() {
+  var donations = new Usergrid.Collection('totalDonations');
+  donations.get(function() {
+      if (donations.hasNextEntity()) {
+        donation = donations.getNextEntity();
+        var totalDonationHTML = document.getElementById('totalDonation');
+        totalDonationHTML.innerHTML =  "Amount donated so far: &euro; "+(donation.get('amount')/10).toFixed(2);
+      }
+  });
 }
 
 function playSong(trackURI) {
@@ -128,4 +153,5 @@ function getSongs() {
 
 $(function() {
   getSongs();
+  getDonations();
 });
