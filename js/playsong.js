@@ -24,14 +24,11 @@ models.player.observe(models.EVENT.CHANGE, function(event) {
     } else {
       console.log("#"+differenceTimestamp+"# "+lastTrack.name+" ("+lastTrackDuration+")");
       if (listenedAll) {
-        // lastTrack = 'spotify:track:4jMJJRL3lPxj54H9UliywM';
         updateBudget(lastTrack.uri, -1);
       }
     }
 	}
 	
-
-  
   lastTrack = track;
   lastTrackDuration = track.duration;
 });
@@ -55,9 +52,9 @@ function playSong(trackURI) {
   var sp = getSpotifyApi();
 	var models = sp.require('$api/models');
 	var player = models.player;
-	player.play(trackURI)
+	player.play(trackURI);
 }
-
+ 
 function createEntity() {  
   var song = new Usergrid.Entity("songs");
   song.set("title","Song 2");
@@ -98,7 +95,8 @@ function getSongs() {
              '<div class="albumimage">'+
                  tmp.innerHTML +
              '</div>'+
-             '<a href="'+song.get('spotify_url')+'">'+
+             //'<a href="'+song.get('spotify_url')+'">'+
+             '<a href="javascript:playSong(\''+song.get('spotify_url')+'\')">'+
                  '<h3>'+song.get('artist')+'</h3>'+
                  '<p>'+song.get('title')+'</p>'+
              '</a>'+
