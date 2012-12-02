@@ -95,20 +95,33 @@ function getSongs() {
         var tmp = document.createElement("div");
         tmp.appendChild(el);
     
+        var mosaic = new views.Image(single_track.image);
+        mosaic.node.style.width = '80px';
+        mosaic.node.style.height = '80px';
+        mosaic.node.style.backgroundSize = 'cover';
+        console.log(single_track.uri);
+        
+        var mosaicSponsor = new views.Image(single_track.image);
+        mosaicSponsor.node.style.width = '80px';
+        mosaicSponsor.node.style.height = '80px';
+        mosaicSponsor.node.style.backgroundSize = 'cover';
+        console.log(single_track.uri);
+
+    
         // Generate the HTML snippet for this song
         $('#sponsored_songs').append('<li>'+
-             '<div class="albumimage">'+
-                 tmp.innerHTML +
-             '</div>'+
-             //'<a href="'+song.get('spotify_url')+'">'+
+             '<div id=\"mosaic-'+single_track.uri+'\" class="albumimage"></div>'+
              '<a href="javascript:playSong(\''+song.get('spotify_url')+'\')">'+
                  '<h3>'+song.get('artist')+'</h3>'+
                  '<p>'+song.get('title')+'</p>'+
-                 '<p class="playcount">This song generated € '+(song.get('play_count')/10).toFixed(2)+' in donations, '+song.get('budget')+' plays remaining</p>'+
+                 '<p>This song generated € '+(song.get('play_count')/10).toFixed(2)+' in donations, '+song.get('budget')+' plays remaining</p>'+
              '</a>'+
          '</li>');
       
-      // console.log(song.get('uuid'));
+         var imageHTML = document.getElementById('mosaic-'+single_track.uri);
+         imageHTML.appendChild(mosaic.node);
+         var imageSponsorHTML = document.getElementById('mosaic-sponsor-'+single_track.uri);
+         imageSponsorHTML.appendChild(mosaicSponsor.node);
      }
   });
 }
