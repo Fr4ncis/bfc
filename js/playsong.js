@@ -24,7 +24,7 @@ models.player.observe(models.EVENT.CHANGE, function(event) {
     } else {
       console.log("#"+differenceTimestamp+"# "+lastTrack.name+" ("+lastTrackDuration+")");
       if (listenedAll) {
-        updateBudget(lastTrack.uri, -1);
+        updateBudget(lastTrack.uri, -1, 1);
       }
     }
 	}
@@ -34,19 +34,22 @@ models.player.observe(models.EVENT.CHANGE, function(event) {
 });
 
 
-function updateBudget(track, modification) {
+function updateBudget(track, budget_modification, plays_modification) {
+    plays_modification = typeof plays_modification !== 'undefined' ? plays_modification : 0;
+    
     var songs = new Usergrid.Collection('songs');
     songs.setQueryParams({"ql":"select * where spotify_url='"+track+"'"})
     songs.get(function() {
         if (songs.hasNextEntity()) {
 	        song = songs.getNextEntity();
-	        var budget = song.get('budget')+modification;
+	        var budget = song.get('budget')+budget_modification;
 	        song.set('budget', budget);
+	        var play_count = song.get('play_count')+plays_modification;
+	        song.set('play_count', play_count);
 	        song.save();
 	    }
     });    
 }
-
 
 function playSong(trackURI) {
   var sp = getSpotifyApi();
@@ -99,12 +102,11 @@ function getSongs() {
              '<a href="javascript:playSong(\''+song.get('spotify_url')+'\')">'+
                  '<h3>'+song.get('artist')+'</h3>'+
                  '<p>'+song.get('title')+'</p>'+
-                 '<p>'+song.get('budget')+' plays remaining</p>'+
+                 '<p>Played '+song.get('play_count')+' times, '+song.get('budget')+' plays remaining</p>'+
              '</a>'+
          '</li>');
       
       // console.log(song.get('uuid'));
-      
      }
   });
 }
