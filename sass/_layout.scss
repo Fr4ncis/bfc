@@ -14,9 +14,9 @@
 	text-shadow: none;
 
 	h1 {
-		font-size: emCalc(50px);
-		line-height: emCalc(70px, 50px);
-		color: #fff;
+		height: 57px;
+		@include hide-text;
+		@include retina-image("logo", "png", 385px 57px, no-repeat);
 	}
 
 	p {
