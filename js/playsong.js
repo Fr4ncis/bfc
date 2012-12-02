@@ -101,6 +101,7 @@ function getSongs() {
              '<a href="'+song.get('spotify_url')+'">'+
                  '<h3>'+song.get('artist')+'</h3>'+
                  '<p>'+song.get('title')+'</p>'+
+                 '<p>'+song.get('budget')+' plays remaining</p>'+
              '</a>'+
          '</li>');
       

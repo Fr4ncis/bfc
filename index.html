@@ -18,6 +18,7 @@
 						a:hover {color:#83be20;}*/
 				</style>
 				<script src="sp://bfc/js/jquery.min.js"></script>
+				<script src="sp://bfc/js/jquery.DOMWindow.js"></script>
 				<script src="sp://bfc/js/rainbow-custom.min.js"></script>
 				<script src="sp://bfc/js/tutorial.js"></script>
 				<script src="sp://bfc/js/usergrid.appSDK.js" type="text/javascript"></script>
@@ -57,7 +58,7 @@
 										<h3>Calvin Harris</h3>
 										<p>This is dummy title of the song</p>
 									</a>
-									<p><a href="javascript:updateBudget('spotify:track:0blzOIMnSXUKDsVSHpZtWL', 10)">Sponsor this song</a></p>
+									<p><a href="#paymentInline" onclick="$('#sponsor_url').val('spotify:track:0blzOIMnSXUKDsVSHpZtWL', 10)" class="updatebudget">Sponsor this song</a></p>
 								</li>
 
 								<li>
@@ -68,7 +69,7 @@
 										<h3>Blur</h3>
 										<p>This is dummy title of the song - Song2</p>
 									</a>
-									<p><a href="javascript:updateBudget('spotify:track:3GfOAdcoc3X5GPiiXmpBjK', 10)" class="updatebudget">Sponsor this song</a></p>
+									<p><a href="#paymentInline" onclick="$('#sponsor_url').val('spotify:track:3GfOAdcoc3X5GPiiXmpBjK', 10)" class="updatebudget">Sponsor this song</a></p>
 								</li>
 								<li>
 									<div class="albumimage">
@@ -78,7 +79,7 @@
 										<h3>Short</h3>
 										<p>This is dummy title of the song</p>
 									</a>
-									<p><a href="javascript:updateBudget('spotify:track:4jMJJRL3lPxj54H9UliywM', 10)" class="updatebudget">Sponsor this song</a></p>
+									<p><a href="#paymentInline" onclick="$('#sponsor_url').val('spotify:track:4jMJJRL3lPxj54H9UliywM', 10)" class="updatebudget">Sponsor this song</a></p>
 								</li>
 							</ul>	
 						<div id="single_track_player"></div>
@@ -86,5 +87,32 @@
 					</section>
 				
 				</div>
+				
+				<script type="text/javascript"> 
+                    $('.updatebudget').openDOMWindow({ 
+                        eventType:'click', 
+                        height: 150
+                    }).click(function() {
+                        $('#payment_ok').hide();
+                        $('#payment_form').show();
+                        $('#payment_form input[type=text]').val("");
+                    });
+                </script>
+                <div id="paymentInline" style=" display:none;"> 
+                    <h1>Sponsor a song</h1> 
+                    <p>
+                        To sponsor a song, send a text message with <strong>SONG</strong> to <strong>4242</strong>.
+                        Enter the number in the reply below. This message will cost <strong>€ 5.00</strong> and will sponsor this song for another <strong>50 plays</strong>.
+                    </p>
+                    <p id="payment_form">
+                        <br /><input type="hidden" id="sponsor_url">
+                        Code: <input type="text" size="5" /> <input type="button" value="OK" onclick="javascript:$('#payment_ok').slideDown(); $('#payment_form').slideUp(); updateBudget($('#sponsor_url').val(), 50)" />
+                    </p>
+                    <h3 id="payment_ok" style="display: none">
+                        <br />
+                        Your payment has been processed.<br />Thanks for helping Play for Charity!
+                    </h3>
+                </div>
+                
 		</body>
 </html>
