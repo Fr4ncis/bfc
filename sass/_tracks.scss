@@ -31,7 +31,6 @@
 		//}
 
 		a {
-			//min-height: 80px;	
 			display: block;	
 			
 		}
@@ -48,6 +47,9 @@
 	}
 
 	p {
+		margin-bottom: 10px;
 		font-size: emCalc(14px);
 	}
+
+	.playsong {font-size: emCalc(12px); color: $color-font;}
 }

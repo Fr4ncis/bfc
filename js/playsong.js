@@ -113,8 +113,8 @@ function getSongs() {
              '<div id=\"mosaic-'+single_track.uri+'\" class="albumimage"></div>'+
              '<a href="javascript:playSong(\''+song.get('spotify_url')+'\')">'+
                  '<h3>'+song.get('artist')+'</h3>'+
-                 '<p>'+song.get('title')+'</p>'+
-                 '<p class="icon-music">This song generated € '+(song.get('play_count')/10).toFixed(2)+' in donations, '+song.get('budget')+' plays remaining</p>'+
+                 '<p class="icon-music">'+song.get('title')+'</p>'+
+                 '<p class="playsong icon-gift">This song generated € '+(song.get('play_count')/10).toFixed(2)+' in donations, '+song.get('budget')+' plays remaining</p>'+
              '</a>'+
          '</li>');
       

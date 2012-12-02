@@ -12,6 +12,7 @@
 
 /* Use the following CSS code if you want to have a class per icon */
 [class^="icon-"]:before, [class*=" icon-"]:before {
+	margin-right: 10px;
 	font-family: 'icomoon';
 	font-style: normal;
 	speak: none;
@@ -23,8 +24,18 @@
 	content: "\6d";
 }
 .icon-gift:before {
+	font-size: emCalc(16px, 12px);
 	content: "\67";
 }
 .icon-happy:before {
 	content: "\68";
+}
+.icon-neutral:before {
+	content: "\21";
+}
+.icon-smiley:before {
+	content: "\22";
+}
+.icon-diamond:before {
+	content: "\23";
 }
